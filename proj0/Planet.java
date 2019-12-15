@@ -33,4 +33,69 @@ public class Planet{
 		
 		return Math.sqrt(dx*dx+dy*dy); 
 	}
+	
+	public double calcForceExertedBy(Planet p){
+		double distance=calcDistance(p);
+		double force=6.67e-11*mass*p.mass/distance/distance;
+		return force;
+		
+	}
+	
+	public double calcForceExertedByX(Planet p){
+		double force=calcForceExertedBy(p);
+		double dx=p.xxPos-xxPos;
+		double distance=calcDistance(p);
+		double forceX=force*dx/distance;
+		return forceX;
+		
+	}
+	
+	public double calcForceExertedByY(Planet p){
+		double force=calcForceExertedBy(p);
+		double dy=p.yyPos-yyPos;
+		double distance=calcDistance(p);
+		double forceY=force*dy/distance;
+		return forceY;
+		
+	}
+	
+	public double calcNetForceExertedByX(Planet[] pArray){
+		double netForceX=0.0;
+		for(Planet p: pArray){
+			if(this.equals(p))
+				continue;
+			netForceX+=calcForceExertedByX(p);
+		}
+		
+		return netForceX;
+		
+	}
+	
+	public double calcNetForceExertedByY(Planet[] pArray){
+		double netForceY=0.0;
+		for(Planet p: pArray){
+			if(this.equals(p))
+				continue;
+			netForceY+=calcForceExertedByY(p);
+		}
+		
+		return netForceY;
+		
+	}
+	
+	public void update(double dt, double netForceX, double netForceY){
+		
+		double accX=netForceX/mass;
+		double accY=netForceY/mass;
+		
+		xxVel+=accX*dt;
+		yyVel+=accY*dt;
+		
+		xxPos+=xxVel*dt;
+		yyPos+=yyVel*dt;
+		
+		
+		
+	}
+	
 }
