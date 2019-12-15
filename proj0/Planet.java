@@ -92,10 +92,15 @@ public class Planet{
 		yyVel+=accY*dt;
 		
 		xxPos+=xxVel*dt;
-		yyPos+=yyVel*dt;
-		
-		
+		yyPos+=yyVel*dt;	
+	}
+	
+	public void draw(){
+		StdDraw.picture(xxPos,yyPos,imgFileName);
+		StdDraw.show();
 		
 	}
+	
+	
 	
 }
