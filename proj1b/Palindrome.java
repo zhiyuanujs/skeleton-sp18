@@ -34,6 +34,11 @@ public class Palindrome {
             front=L.removeFirst();
             back=L.removeLast();
 
+            if(front<'A' || front>'z')
+                return false;
+            if(back<'A' || back>'z')
+                return false;
+
             if(cc.equalChars(front,back)==false)
                 return false;
         }
