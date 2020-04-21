@@ -3,7 +3,7 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 public class PercolationStats {
 
-    double [] perThreshold;
+    private double [] perThreshold;
     private double mean;
     private double stddev;
     private int times;
@@ -49,15 +49,4 @@ public class PercolationStats {
 
     }
 
-
-    public static void main(String[] args){
-        PercolationFactory pf=new PercolationFactory();
-        PercolationStats ps=new PercolationStats(20,50,pf);
-
-        System.out.println(ps.mean());
-        System.out.println(ps.stddev());
-        System.out.println(ps.confidenceLow());
-        System.out.println(ps.confidenceHigh());
-
-    }
 }

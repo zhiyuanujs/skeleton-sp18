@@ -1,21 +1,19 @@
 package hw2;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
-import java.util.ArrayList;
+
 public class Percolation {
 
     private int numOpenSites;
     private int[][] openGrid;
     private int dimension;
     private WeightedQuickUnionUF union;
-    private ArrayList<Integer> topOpen;
     private static final int OPEN=1;
 
     public Percolation(int N){
         if(N<0)
             throw new IllegalArgumentException("N is less than 0");
 
-        topOpen=new ArrayList<>();
         openGrid=new int[N][N];
         union =new WeightedQuickUnionUF(N*N);
         dimension=N;
@@ -55,7 +53,6 @@ public class Percolation {
             return;
 
         openGrid[row][col]=OPEN;
-        if(row==0) topOpen.add(col);
         connectNearBy(openGrid,row,col);
         numOpenSites++;
 
@@ -70,12 +67,10 @@ public class Percolation {
 
     public boolean isFull(int row, int col){
         outOfBundsCheck(row,col);
-
-        for(Integer i: topOpen){
-            if(union.connected(row*dimension+col,i))
+        for(int i=0;i<dimension;i++){
+            if(openGrid[row][col]==OPEN && union.connected(row*dimension+col,i))
                 return true;
         }
-
         return false;
     }
 
@@ -84,24 +79,12 @@ public class Percolation {
     }
 
     public boolean percolates(){
-        for(Integer i: topOpen){
-            for(int j=0;j<dimension;j++){
-                if(union.connected(dimension*(dimension-1)+j,i))
-                    return true;
-            }
+        for(int i=0;i<dimension;i++){
+            if(isFull(dimension-1,i))
+                return true;
         }
         return false;
 
     }
-
-    public static void main(String[] args){
-
-        WeightedQuickUnionUF union=new WeightedQuickUnionUF(20);
-        System.out.println(union.find(19));
-
-    }
-
-
-
 
 }
