@@ -15,7 +15,7 @@ public class Percolation {
             throw new IllegalArgumentException("N is less than 0");
 
         openGrid=new int[N][N];
-        union =new WeightedQuickUnionUF(N*N);
+        union =new WeightedQuickUnionUF(N*N+2);
         dimension=N;
         numOpenSites=0;
 
@@ -54,6 +54,11 @@ public class Percolation {
 
         openGrid[row][col]=OPEN;
         connectNearBy(openGrid,row,col);
+        if(row==0) union.union(col,dimension*dimension);
+        if(row==dimension-1) {
+
+            union.union(row * dimension + col, dimension * dimension + 1);
+        }
         numOpenSites++;
 
     }
@@ -67,10 +72,10 @@ public class Percolation {
 
     public boolean isFull(int row, int col){
         outOfBundsCheck(row,col);
-        for(int i=0;i<dimension;i++){
-            if(openGrid[row][col]==OPEN && union.connected(row*dimension+col,i))
+
+        if(union.connected(row*dimension+col,dimension*dimension))
                 return true;
-        }
+
         return false;
     }
 
@@ -79,10 +84,8 @@ public class Percolation {
     }
 
     public boolean percolates(){
-        for(int i=0;i<dimension;i++){
-            if(isFull(dimension-1,i))
-                return true;
-        }
+        if(union.connected(dimension*dimension,dimension*dimension+1))
+            return true;
         return false;
 
     }

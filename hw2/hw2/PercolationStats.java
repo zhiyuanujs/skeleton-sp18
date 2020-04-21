@@ -10,6 +10,9 @@ public class PercolationStats {
 
     public PercolationStats(int N, int T, PercolationFactory pf){
 
+        if(N<0 || T<0)
+            throw new IllegalArgumentException("negative value in PercolationStats constructor");
+
         times=T;
         perThreshold=new double[T];
         int x,y;
