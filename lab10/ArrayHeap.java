@@ -173,10 +173,15 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public T removeMin() {
         /* TODO: Your code here! */
         T returnValue=peek();
+        if(size==1){
+            contents[size]=null;
+            return returnValue;
+        }
         swap(1,size);
         contents[size]=null;
-        sink(1);
         size--;
+        sink(1);
+
 
         return returnValue;
     }
@@ -467,6 +472,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         pq.changePriority("d",0);
         assertEquals("d",pq.peek());
+    }
+
+    @Test
+    public void testRomveOnlyOne(){
+        ExtrinsicPQ<String> pq = new ArrayHeap<>();
+        pq.insert("c", 3);
+        assertEquals("c",pq.removeMin());
     }
 
 }
