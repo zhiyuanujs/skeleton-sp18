@@ -150,6 +150,19 @@ public class Board implements WorldState{
 
     }
 
+    public int hashCode(){
+        int code=0;
+        int n=0;
+        for(int i=0;i<size;i++)
+            for(int j=0;j<size;j++){
+                code=code+initialState[i][j]^n;
+                n++;
+            }
+
+        return code;
+
+    }
+
 
     /** Returns the string representation of the board. 
       * Uncomment this method. */
@@ -167,14 +180,6 @@ public class Board implements WorldState{
         s.append("\n");
         return s.toString();
     }
-
-    public static void main(String[] args){
-        int[][] tiles={{0,1,3},{4,2,5},{7,8,6}};
-        WorldState board=new Board(tiles);
-        Solver boardSolver=new Solver(board);
-        for(WorldState w: boardSolver.solution())
-            System.out.println(w);
-        
-    }
+    
 
 }

@@ -7,9 +7,9 @@ import java.util.HashSet;
 
 public class Solver {
 
-    MinPQ <SearchNode> pQueue;
-    int minMove;
-    Stack<WorldState> pathToGoal;
+    private MinPQ <SearchNode> pQueue;
+    private int minMove;
+    private Stack<WorldState> pathToGoal;
 
     private class SearchNode{
         WorldState w;
